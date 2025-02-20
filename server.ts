@@ -1,8 +1,11 @@
-import express from 'express';
-import router from './routes';
+import Express from "express";
+import dotenv from 'dotenv';
+import router from "./routes";
 
-const server = express();
 
-console.log('testing server')
+dotenv.config();
+const server = Express();
 
-server.listen(3000);
+server.use(Express.urlencoded({extended:true}))
+server.use(router);
+server.listen(process.env.PORT);

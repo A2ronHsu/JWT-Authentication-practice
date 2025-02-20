@@ -1,16 +1,14 @@
 {
-  "name": "authentication",
+  "name": "auth-com-jwt",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc --build",
-    "dev": "nodemon --watch '*.ts' --ext ts --exec 'ts-node server.ts'",
-    "start": "node server.js",
-    "ts-node": "tsc server.ts"
-
+    "dev": "nodemon --ext ts --exec 'ts-node server.ts'",
+    "start": "node server.js"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
@@ -27,7 +25,7 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "uuid": "^11.0.5",
+    "uuid": "^11.1.0",
     "yup": "^1.6.1"
   }
 }
