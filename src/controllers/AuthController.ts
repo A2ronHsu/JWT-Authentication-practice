@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { executeAuthSchema, addAuthSchema } from "../schemas/AuthSchemas";
+import { executeAuthSchema, addAuthSchema, refreshTokenSchema, RefreshTokenInterface } from "../schemas/AuthSchemas";
 import AuthService from "../services/AuthService";
 
 const authService = new AuthService();
@@ -18,7 +18,9 @@ class AuthController {
 
    async refresh(Req:Request, Res:Response){
       try {
-         
+         const dadosValidados = await refreshTokenSchema.validate(Req.body, {stripUnknown: true});
+         const resuldadoRefreshToken = await authService.refresh(dadosValidados);
+         Res.json(resuldadoRefreshToken);
       } catch (err:any) {
          Res.status(400).json({error: err.message});
       }

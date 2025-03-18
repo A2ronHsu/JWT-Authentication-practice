@@ -1,7 +1,7 @@
-import { AuthInterface, AddInterface } from "../schemas/AuthSchemas";
+import { AuthInterface, AddInterface, RefreshTokenInterface } from "../schemas/AuthSchemas";
 import InMemoryUserRepository from "../repositories/in-memory/InMemoryUserRepository";
 import bcrypt from 'bcrypt';
-import { generateJWT } from "./helpers/AuthHelper";
+import { decodeJWT, generateJWT, verifyJWT } from "./helpers/AuthHelper";
 const inMemoryUserRepository = new InMemoryUserRepository();     
 
 class AuthService {
@@ -22,7 +22,21 @@ class AuthService {
       return {token,refreshToken}; 
    }
 
-   async refresh (){
+   async refresh (dadosValidados:RefreshTokenInterface){
+      const verifyToken = verifyJWT(dadosValidados.token);
+      const verifyRefreshToken = verifyJWT(dadosValidados.refreshToken);
+      if(!verifyToken && !verifyRefreshToken){
+         throw new Error("Token and refresh token problem")
+      }
+
+      if(!verifyToken && verifyRefreshToken){
+         const {name, email, phone, password} = decodeJWT(dadosValidados.refreshToken);
+         const payloadJWT = {name, email, phone, password};
+         const token = generateJWT(payloadJWT, process.env.EXPIRES_TOKEN_IN);
+         const refreshToken = generateJWT(payloadJWT, process.env.EXPIRES_REFRESH_TOKEN_IN);
+         console.log(verifyToken, verifyRefreshToken);
+         return {token, refreshToken};
+      }
 
    }
 

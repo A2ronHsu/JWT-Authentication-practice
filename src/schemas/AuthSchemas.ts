@@ -5,7 +5,18 @@ export const executeAuthSchema = object().shape({
    password: string().min(8).required()
 })
 
+
+export const refreshTokenSchema = object().shape({
+   token: string().required(),
+   refreshToken: string().required()
+
+})
+
 export type AuthInterface = Yup.InferType<typeof executeAuthSchema>;
+export type RefreshTokenInterface = Yup.InferType<typeof refreshTokenSchema>;
+
+
+
 
 export const addAuthSchema = object().shape({
    name: string().required(),
