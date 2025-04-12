@@ -37,7 +37,7 @@ class AuthService {
          return {token, refreshToken, log:'refreshed'};
       }
 
-      return {log:'still logged'};
+      return {token: 'not expired yet', refreshToken:'not expired yet',log:'still logged'};
 
    }
 

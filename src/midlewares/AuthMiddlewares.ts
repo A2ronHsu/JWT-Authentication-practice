@@ -13,7 +13,6 @@ export const AuthMiddleware = async (Req: Request, Res: Response, Next: NextFunc
          .set("authorization", tokens.token)
          .set("refreshtoken", tokens.refreshToken)
          .set("log", tokens.log);
-         
          Next();
          return;
       }
@@ -22,6 +21,4 @@ export const AuthMiddleware = async (Req: Request, Res: Response, Next: NextFunc
       console.log("error found");
       Res.json({error:err.message});
    }
-
-
 }
