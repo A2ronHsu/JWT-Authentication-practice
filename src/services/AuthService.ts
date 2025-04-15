@@ -34,10 +34,10 @@ class AuthService {
          const payloadJWT = {name, email, phone, password};
          const token = generateJWT(payloadJWT, process.env.EXPIRES_TOKEN_IN);
          const refreshToken = generateJWT(payloadJWT, process.env.EXPIRES_REFRESH_TOKEN_IN);
-         return {token, refreshToken};
+         return {token, refreshToken, log:'refreshed'};
       }
 
-      return {log:'still logged'};
+      return {token: 'not expired yet', refreshToken:'not expired yet',log:'still logged'};
 
    }
 
