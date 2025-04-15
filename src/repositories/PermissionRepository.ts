@@ -6,7 +6,7 @@ export default class PermissionRepository{
    constructor(){
       this.permission = [
          {id: "1", user_group: 1, domain:"project", permissions: ['getAll', 'getById', 'add', 'update', 'delete']},
-         {id: "2", user_group: 2, domain:"temp", permissions: [ 'getAll','getById', 'add', 'update']}
+         {id: "2", user_group: 2, domain:"funcionário", permissions: [ 'getAll','getById', 'add', 'update']}
       ]
    }
 

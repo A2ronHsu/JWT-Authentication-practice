@@ -1,11 +1,7 @@
 import { Request, Response, Router } from "express";
 import AuthController from "./src/controllers/AuthController";
 import { AuthMiddleware } from "./src/midlewares/AuthMiddlewares";
-<<<<<<< HEAD
 import { PermissionMiddleware } from "./src/midlewares/PermissionMiddlewares";
-
-=======
->>>>>>> 638ecc07434c516a6c8bff72daadc25a817be3a7
 
 const router = Router();
 const authController = new AuthController();
