@@ -1,5 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 
-export const PermissionMiddleware = (Req: Request, Res: Response, Next: NextFunction) => {
-   
+const PermissionMiddleware = (domain : string, permission: string[]) => {
+   return (Req: Request, Res: Response, Next: NextFunction) => {
+      console.log('authorization middleware')
+      Res.json({test:'test'})
+      Next();
+   }
 }
+
+export default PermissionMiddleware;

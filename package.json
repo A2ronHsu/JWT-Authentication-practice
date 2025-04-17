@@ -31,5 +31,13 @@
     "jsonwebtoken": "^9.0.2",
     "uuid": "^11.1.0",
     "yup": "^1.6.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/A2ronHsu/JWT-Authentication-practice.git"
+  },
+  "bugs": {
+    "url": "https://github.com/A2ronHsu/JWT-Authentication-practice/issues"
+  },
+  "homepage": "https://github.com/A2ronHsu/JWT-Authentication-practice#readme"
 }

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import AuthService from "../services/AuthService";
+import { decodeJWT } from "../services/helpers/AuthHelper";
 
 export const AuthMiddleware = async (Req: Request, Res: Response, Next: NextFunction) =>{
    const authService = new AuthService();
@@ -9,6 +10,10 @@ export const AuthMiddleware = async (Req: Request, Res: Response, Next: NextFunc
       if (authorization && refreshtoken){
          const tokens = await authService.refresh({token: authorization, refreshToken: refreshtoken as string});
          console.log(tokens);
+         const dataUser = decodeJWT(tokens.token);
+         console.log(dataUser);
+         // Req.body.id_user = decodeJWT(tokens.token)
+
          Res
          .set("authorization", tokens.token)
          .set("refreshtoken", tokens.refreshToken)

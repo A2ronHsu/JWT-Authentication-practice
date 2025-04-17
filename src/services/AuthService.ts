@@ -1,18 +1,19 @@
 import { AuthInterface, AddInterface, RefreshTokenInterface } from "../schemas/AuthSchemas";
-import InMemoryUserRepository from "../repositories/in-memory/InMemoryUserRepository";
+import AuthRepository from "../repositories/AuthRepository";
 import bcrypt from 'bcrypt';
 import { decodeJWT, generateJWT, verifyJWT } from "./helpers/AuthHelper";
-const inMemoryUserRepository = new InMemoryUserRepository();     
+const authRepository = new AuthRepository();     
 
 class AuthService {
    
    async execute (dadoValidados:AuthInterface){
-      const dataUser = await inMemoryUserRepository.getByEmail(dadoValidados.email);
+      const dataUser = await authRepository.getByEmail(dadoValidados.email);
+      console.log(dadoValidados.password, dataUser.password);
       const ifPasswordCorrect = await bcrypt.compare(dadoValidados.password, dataUser.password);
       
       
       
-      if(!dataUser && !ifPasswordCorrect){
+      if(!dataUser || !ifPasswordCorrect){
          throw new Error('not valid');
          
       }
@@ -41,15 +42,15 @@ class AuthService {
 
    }
 
-   async add (dadosValidados:AddInterface){
-      const senhaCriptografada = await bcrypt.hash(dadosValidados.password,10);
-      dadosValidados.password = senhaCriptografada;
-      return inMemoryUserRepository.add(dadosValidados);
-   }
+   // async add (dadosValidados:AddInterface){
+   //    const senhaCriptografada = await bcrypt.hash(dadosValidados.password,10);
+   //    dadosValidados.password = senhaCriptografada;
+   //    return inMemoryUserRepository.add(dadosValidados);
+   // }
 
-   get (){
-      return inMemoryUserRepository.get()
-   }
+   // get (){
+   //    return inMemoryUserRepository.get()
+   // }
 }
 
 export default AuthService;
