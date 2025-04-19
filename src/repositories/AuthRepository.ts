@@ -32,8 +32,13 @@ export default class AuthRepository{
       ]
    }
 
+   getById (id:string){
+      return this._users.find(user => user.id === id);
+
+   }
+
    async getByEmail ( email: string){
-      const user = this._users.filter( user => user.email === email);
-      return user[0];
+      const user = this._users.find( user => user.email === email);
+      return user;
    }
 }

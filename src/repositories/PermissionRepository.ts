@@ -17,4 +17,8 @@ export default class PermissionRepository{
    getById(id:string){
       return this.permission.find( permission => id == permission.id);
    }
+
+   getByUserGroupAndDomain (userGroup: number, domain: string){
+      return this.permission.find(permission => permission.user_group == userGroup && permission.domain == domain);
+   }
 };

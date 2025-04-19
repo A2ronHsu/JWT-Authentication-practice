@@ -15,5 +15,7 @@ router.get("/users", AuthMiddleware, (Req:Request, Res:Response )=>{
    Res.json({Headers: Res.getHeaders(), sucess: true});
 })
 
-router.get("/admin/project", AuthMiddleware, PermissionMiddleware("project", ['getAll']));
+router.get("/admin/project", AuthMiddleware, PermissionMiddleware("funcionário", ['getAll','add']), (Req: Request, Res: Response)=>{
+   Res.json({status:'passou tudo'})
+});
 export default router;

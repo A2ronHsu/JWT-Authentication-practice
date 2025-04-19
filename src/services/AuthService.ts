@@ -8,8 +8,9 @@ class AuthService {
    
    async execute (dadoValidados:AuthInterface){
       const dataUser = await authRepository.getByEmail(dadoValidados.email);
-      console.log(dadoValidados.password, dataUser.password);
-      const ifPasswordCorrect = await bcrypt.compare(dadoValidados.password, dataUser.password);
+      if (dataUser?.password){
+         const ifPasswordCorrect = await bcrypt.compare(dadoValidados.password, dataUser.password);
+      
       
       
       
@@ -17,7 +18,7 @@ class AuthService {
          throw new Error('not valid');
          
       }
-      
+   }
       const token = generateJWT(dataUser, process.env.EXPIRES_TOKEN_IN);
       const refreshToken = generateJWT(dataUser, process.env.EXPIRES_REFRESH_TOKEN_IN);
       return {token,refreshToken}; 
@@ -31,14 +32,14 @@ class AuthService {
       }
 
       if(!verifyToken && verifyRefreshToken){
-         const {name, email, phone, password} = decodeJWT(dadosValidados.refreshToken);
-         const payloadJWT = {name, email, phone, password};
+         const {name, email, phone, password, id, user_group} = decodeJWT(dadosValidados.refreshToken);
+         const payloadJWT = {name, email, phone, password, id, user_group};
          const token = generateJWT(payloadJWT, process.env.EXPIRES_TOKEN_IN);
          const refreshToken = generateJWT(payloadJWT, process.env.EXPIRES_REFRESH_TOKEN_IN);
          return {token, refreshToken, log:'refreshed'};
       }
 
-      return {token: 'not expired yet', refreshToken:'not expired yet',log:'still logged'};
+      return {token: dadosValidados.token, refreshToken:dadosValidados.refreshToken,log:'still logged'};
 
    }
 
